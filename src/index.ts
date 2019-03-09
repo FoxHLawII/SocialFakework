@@ -1,5 +1,6 @@
 import { Application } from 'express';
 
+import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import express from 'express';
 import dotenv from 'dotenv';
@@ -12,6 +13,7 @@ const PORT = process.env.PORT || 3000;
 const DB_URL = process.env.DB_URL || '';
 
 const app: Application = express();
+app.use(bodyParser.json());
 
 initRoutes(app);
 
