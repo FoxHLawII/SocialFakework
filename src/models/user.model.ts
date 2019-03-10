@@ -1,4 +1,6 @@
 import mongoose from 'mongoose';
+import crypto from 'crypto';
+import uuid from 'uuid/v1';
 
 export interface User {
   name: string;
@@ -34,5 +36,23 @@ const UserSchema = new mongoose.Schema({
     type: Date
   }
 });
+
+UserSchema.virtual('password')
+  .set(function (this: any, password: string) {
+    this._password = password;
+    this.salt = uuid();
+    this.hashed_password = this.encryptPassword(password);
+  })
+  .get(function(this: any) {
+    return this._password;
+  });
+
+UserSchema.methods.encryptPassword = function (password: string) {
+  try {
+		return crypto.createHmac('sha256', this.salt).update(password).digest('hex');
+  } catch (error) {
+    return "";
+  }
+}
 
 export const UserModel = mongoose.model('User', UserSchema);
