@@ -5,7 +5,7 @@ export interface Post {
     body: string;
 }
 
-export const PostSchema = new mongoose.Schema({
+const PostSchema = new mongoose.Schema({
     title: {
         type: String,
         required: 'El titulo es requerido',
