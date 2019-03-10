@@ -1,5 +1,6 @@
 import { Application } from 'express';
 
+import expressValidator from 'express-validator';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import express from 'express';
@@ -14,6 +15,7 @@ const DB_URL = process.env.DB_URL || '';
 
 const app: Application = express();
 app.use(bodyParser.json());
+app.use(expressValidator())
 
 initRoutes(app);
 
