@@ -8,12 +8,12 @@ export const postRoutes = (router: Router): Router => {
 
   router.get('/', async (req: Request, res: Response) => { 
     const posts = await getAllPosts();
-    res.status(200).json(new ResponseHelper(true, posts));
+    return res.status(200).json(new ResponseHelper(true, posts));
   });
 
   router.post('/', postValidator, async (req: Request, res: Response) => {
     const post = await insertPost(req.body)
-    res.status(200).json(new ResponseHelper(true, post));
+    return res.status(200).json(new ResponseHelper(true, post));
   });
 
   return router;

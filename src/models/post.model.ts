@@ -1,11 +1,13 @@
+import { Schema, Document } from 'mongoose';
+
 import mongoose from 'mongoose';
 
-export interface Post {
+export interface Post extends Document {
     title: string;
     body: string;
 }
 
-const PostSchema = new mongoose.Schema({
+const PostSchema = new Schema({
     title: {
         type: String,
         required: 'El titulo es requerido',
@@ -20,4 +22,4 @@ const PostSchema = new mongoose.Schema({
     }
 });
 
-export const PostModel = mongoose.model('Post', PostSchema);
+export const PostModel = mongoose.model<Post>('Post', PostSchema);

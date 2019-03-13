@@ -1,15 +1,17 @@
+import { Schema, Document } from 'mongoose';
+
 import mongoose from 'mongoose';
 import crypto from 'crypto';
 import uuid from 'uuid/v1';
 
-export interface User {
+export interface User extends Document {
   name: string;
   email: string;
   password?: string;
   confirm_password?: string;
 }
 
-const UserSchema = new mongoose.Schema({
+const UserSchema = new Schema({
   name: {
     type: String,
     trim: true,
@@ -55,4 +57,4 @@ UserSchema.methods.encryptPassword = function (password: string) {
   }
 }
 
-export const UserModel = mongoose.model('User', UserSchema);
+export const UserModel = mongoose.model<User>('User', UserSchema);
